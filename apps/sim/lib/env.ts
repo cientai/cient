@@ -36,6 +36,7 @@ export const env = createEnv({
     ANTHROPIC_API_KEY_3: z.string().min(1).optional(),
     FREESTYLE_API_KEY: z.string().min(1).optional(),
     TELEMETRY_ENDPOINT: z.string().url().optional(),
+    SIGN_OZ_INGESTION_KEY: z.string().min(1).optional(),
     COST_MULTIPLIER: z.number().optional(),
     JWT_SECRET: z.string().min(1).optional(),
     BROWSERBASE_API_KEY: z.string().min(1).optional(),

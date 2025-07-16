@@ -1,5 +1,5 @@
 /**
- * Sim Studio Telemetry - Client-side Instrumentation
+ * Cient Telemetry - Client-side Instrumentation
  *
  * This file initializes client-side telemetry when the app loads in the browser.
  * It respects the user's telemetry preferences stored in localStorage.
@@ -44,7 +44,7 @@ if (typeof window !== 'undefined' && isProd) {
 export const onRouterTransitionStart = isProd ? captureRouterTransitionStart : () => {}
 
 if (typeof window !== 'undefined') {
-  const TELEMETRY_STATUS_KEY = 'simstudio-telemetry-status'
+  const TELEMETRY_STATUS_KEY = 'cient-telemetry-status'
   let telemetryEnabled = true
 
   try {
@@ -98,8 +98,8 @@ if (typeof window !== 'undefined') {
 
     return result
   }
-  ;(window as any).__SIM_TELEMETRY_ENABLED = telemetryEnabled
-  ;(window as any).__SIM_TRACK_EVENT = (eventName: string, properties?: any) => {
+  ;(window as any).__CIENT_TELEMETRY_ENABLED = telemetryEnabled
+  ;(window as any).__CIENT_TRACK_EVENT = (eventName: string, properties?: any) => {
     if (!telemetryEnabled) return
 
     const safeProps = properties || {}
@@ -113,7 +113,9 @@ if (typeof window !== 'undefined') {
 
     fetch('/api/telemetry', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(payload),
     }).catch(() => {
       // Silently fail if sending metrics fails
@@ -121,11 +123,11 @@ if (typeof window !== 'undefined') {
   }
 
   if (telemetryEnabled) {
-    performance.mark('sim-studio-init')
+    performance.mark('cient-init')
 
     let telemetryConfig
     try {
-      telemetryConfig = (window as any).__SIM_STUDIO_TELEMETRY_CONFIG || {
+      telemetryConfig = (window as any).__CIENT_TELEMETRY_CONFIG || {
         clientSide: { enabled: true },
       }
     } catch (_e) {
@@ -133,8 +135,8 @@ if (typeof window !== 'undefined') {
     }
 
     window.addEventListener('load', () => {
-      performance.mark('sim-studio-loaded')
-      performance.measure('page-load', 'sim-studio-init', 'sim-studio-loaded')
+      performance.mark('cient-loaded')
+      performance.measure('page-load', 'cient-init', 'cient-loaded')
 
       if (typeof PerformanceObserver !== 'undefined') {
         const lcpObserver = new PerformanceObserver((list) => {

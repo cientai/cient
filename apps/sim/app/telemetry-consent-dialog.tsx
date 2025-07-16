@@ -17,22 +17,22 @@ import { useGeneralStore } from '@/stores/settings/general/store'
 
 declare global {
   interface Window {
-    __SIM_TELEMETRY_ENABLED?: boolean
-    __SIM_TRACK_EVENT?: (eventName: string, properties?: Record<string, any>) => void
+    __CIENT_TELEMETRY_ENABLED?: boolean
+    __CIENT_TRACK_EVENT?: (eventName: string, properties?: Record<string, any>) => void
   }
 }
 
 const logger = createLogger('TelemetryConsentDialog')
 
 // LocalStorage key for telemetry preferences
-const TELEMETRY_NOTIFIED_KEY = 'sim_telemetry_notified'
-const TELEMETRY_ENABLED_KEY = 'sim_telemetry_enabled'
+const TELEMETRY_NOTIFIED_KEY = 'cient_telemetry_notified'
+const TELEMETRY_ENABLED_KEY = 'cient_telemetry_enabled'
 
 const trackEvent = (eventName: string, properties?: Record<string, any>) => {
-  if (typeof window !== 'undefined' && window.__SIM_TELEMETRY_ENABLED) {
+  if (typeof window !== 'undefined' && window.__CIENT_TELEMETRY_ENABLED) {
     try {
-      if (window.__SIM_TRACK_EVENT) {
-        window.__SIM_TRACK_EVENT(eventName, properties)
+      if (window.__CIENT_TRACK_EVENT) {
+        window.__CIENT_TRACK_EVENT(eventName, properties)
       }
     } catch (error) {
       logger.error(`Failed to track event ${eventName}:`, error)
@@ -54,7 +54,7 @@ export function TelemetryConsentDialog() {
   const isChatSubdomainOrPath =
     typeof window !== 'undefined' &&
     (window.location.pathname.startsWith('/chat/') ||
-      (window.location.hostname !== 'simstudio.ai' &&
+      (window.location.hostname !== 'cient.dev' &&
         window.location.hostname !== 'localhost' &&
         window.location.hostname !== '127.0.0.1' &&
         !window.location.hostname.startsWith('www.')))

@@ -1,5 +1,5 @@
 /**
- * Sim Studio Telemetry - Server-side Instrumentation
+ * Cient Telemetry - Server-side Instrumentation
  *
  * This file contains all server-side instrumentation logic.
  */
@@ -13,8 +13,8 @@ const Sentry = isProd ? require('@sentry/nextjs') : { captureRequestError: () =>
 const logger = createLogger('OtelInstrumentation')
 
 const DEFAULT_TELEMETRY_CONFIG = {
-  endpoint: env.TELEMETRY_ENDPOINT || 'https://telemetry.simstudio.ai/v1/traces',
-  serviceName: 'sim-studio',
+  endpoint: env.TELEMETRY_ENDPOINT || 'https://telemetry.cient.dev/v1/traces',
+  serviceName: 'cient',
   serviceVersion: '0.1.0',
   serverSide: { enabled: true },
   batchSettings: {
@@ -55,6 +55,9 @@ async function initializeOpenTelemetry() {
 
     const exporter = new OTLPTraceExporter({
       url: telemetryConfig.endpoint,
+      headers: {
+        'signoz-ingestion-key': env.SIGN_OZ_INGESTION_KEY || '',
+      },
     })
 
     const spanProcessor = new BatchSpanProcessor(exporter, {

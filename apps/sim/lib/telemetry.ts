@@ -1,5 +1,5 @@
 /**
- * Sim Studio Telemetry
+ * Cient Telemetry
  *
  * This file can be customized in forked repositories:
  * - Set TELEMETRY_ENDPOINT in telemetry.config.ts to your collector
@@ -27,16 +27,16 @@ export type TelemetryStatus = {
   notifiedUser: boolean
 }
 
-const TELEMETRY_STATUS_KEY = 'simstudio-telemetry-status'
+const TELEMETRY_STATUS_KEY = 'cient-telemetry-status'
 
 let telemetryConfig = {
-  endpoint: env.TELEMETRY_ENDPOINT || 'https://telemetry.simstudio.ai/v1/traces',
-  serviceName: 'sim-studio',
+  endpoint: env.TELEMETRY_ENDPOINT || 'https://telemetry.cient.dev/v1/traces',
+  serviceName: 'cient',
   serviceVersion: '0.1.0',
 }
 
-if (typeof window !== 'undefined' && (window as any).__SIM_STUDIO_TELEMETRY_CONFIG) {
-  telemetryConfig = { ...telemetryConfig, ...(window as any).__SIM_STUDIO_TELEMETRY_CONFIG }
+if (typeof window !== 'undefined' && (window as any).__CIENT_TELEMETRY_CONFIG) {
+  telemetryConfig = { ...telemetryConfig, ...(window as any).__CIENT_TELEMETRY_CONFIG }
 }
 
 let telemetryInitialized = false
@@ -136,7 +136,7 @@ function initializeClientTelemetry(): void {
 
   try {
     const clientSideEnabled =
-      (window as any).__SIM_STUDIO_TELEMETRY_CONFIG?.clientSide?.enabled !== false
+      (window as any).__CIENT_TELEMETRY_CONFIG?.clientSide?.enabled !== false
 
     if (!clientSideEnabled) {
       logger.info('Client-side telemetry disabled in configuration')

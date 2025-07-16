@@ -86,7 +86,7 @@ async function forwardToCollector(data: any): Promise<boolean> {
     return false
   }
 
-  const endpoint = env.TELEMETRY_ENDPOINT || 'https://telemetry.simstudio.ai/v1/traces'
+  const endpoint = env.TELEMETRY_ENDPOINT || 'https://telemetry.cient.dev/v1/traces'
   const timeout = DEFAULT_TIMEOUT
 
   try {
@@ -95,7 +95,7 @@ async function forwardToCollector(data: any): Promise<boolean> {
     const safeAttrs = createSafeAttributes(data)
 
     const serviceAttrs = [
-      { key: 'service.name', value: { stringValue: 'sim-studio' } },
+      { key: 'service.name', value: { stringValue: 'cient' } },
       {
         key: 'service.version',
         value: { stringValue: '0.1.0' },
@@ -141,6 +141,7 @@ async function forwardToCollector(data: any): Promise<boolean> {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'signoz-ingestion-key': env.SIGN_OZ_INGESTION_KEY || '',
         },
         body: JSON.stringify(payload),
         signal: controller.signal,

@@ -38,7 +38,7 @@ const logger = createLogger('Executor')
  * Tracks telemetry events for workflow execution if telemetry is enabled
  */
 function trackWorkflowTelemetry(eventName: string, data: Record<string, any>) {
-  if (typeof window !== 'undefined' && window.__SIM_TRACK_EVENT) {
+  if (typeof window !== 'undefined' && window.__CIENT_TRACK_EVENT) {
     // Add timestamp and sanitize the data to avoid circular references
     const safeData = {
       ...data,
@@ -46,7 +46,7 @@ function trackWorkflowTelemetry(eventName: string, data: Record<string, any>) {
     }
 
     // Track the event through the global telemetry function
-    window.__SIM_TRACK_EVENT(eventName, {
+    window.__CIENT_TRACK_EVENT(eventName, {
       category: 'workflow',
       ...safeData,
     })
