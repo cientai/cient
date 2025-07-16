@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { getBaseDomain } from '@/lib/urls/utils'
 
 interface OrganizationCreationDialogProps {
   open: boolean
@@ -58,7 +59,7 @@ export function OrganizationCreationDialog({
             </label>
             <div className='flex items-center space-x-2'>
               <div className='rounded-l-md bg-muted px-3 py-2 text-muted-foreground text-sm'>
-                simstudio.ai/team/
+                {getBaseDomain()}/team/
               </div>
               <Input
                 value={orgSlug}

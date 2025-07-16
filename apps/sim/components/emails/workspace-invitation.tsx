@@ -11,7 +11,7 @@ import {
   Section,
   Text,
 } from '@react-email/components'
-import { env } from '@/lib/env'
+import { getBaseUrl } from '@/lib/urls/utils'
 import { baseStyles } from './base-styles'
 import EmailFooter from './footer'
 
@@ -21,7 +21,7 @@ interface WorkspaceInvitationEmailProps {
   invitationLink?: string
 }
 
-const baseUrl = env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+const baseUrl = getBaseUrl()
 
 export const WorkspaceInvitationEmail = ({
   workspaceName = 'Workspace',

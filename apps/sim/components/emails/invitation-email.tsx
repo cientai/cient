@@ -15,6 +15,7 @@ import { format } from 'date-fns'
 import { env } from '@/lib/env'
 import { baseStyles } from './base-styles'
 import EmailFooter from './footer'
+import { getBaseUrl } from '@/lib/urls/utils'
 
 interface InvitationEmailProps {
   inviterName?: string
@@ -24,7 +25,7 @@ interface InvitationEmailProps {
   updatedDate?: Date
 }
 
-const baseUrl = env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+const baseUrl = env.NEXT_PUBLIC_APP_URL || getBaseUrl()
 
 export const InvitationEmail = ({
   inviterName = 'A team member',

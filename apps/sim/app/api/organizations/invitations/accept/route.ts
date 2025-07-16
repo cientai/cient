@@ -3,6 +3,7 @@ import { and, eq } from 'drizzle-orm'
 import { type NextRequest, NextResponse } from 'next/server'
 import { getSession } from '@/lib/auth'
 import { env } from '@/lib/env'
+import { getBaseUrl } from '@/lib/urls/utils'
 import { createLogger } from '@/lib/logs/console-logger'
 import { db } from '@/db'
 import { invitation, member, permissions, workspaceInvitation, workspaceMember } from '@/db/schema'
@@ -17,7 +18,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(
       new URL(
         '/invite/invite-error?reason=missing-invitation-id',
-        env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+        env.NEXT_PUBLIC_APP_URL || getBaseUrl()
       )
     )
   }
@@ -29,7 +30,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(
       new URL(
         `/invite/organization?id=${invitationId}`,
-        env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+        env.NEXT_PUBLIC_APP_URL || getBaseUrl()
       )
     )
   }
@@ -46,7 +47,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(
         new URL(
           '/invite/invite-error?reason=invalid-invitation',
-          env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+          env.NEXT_PUBLIC_APP_URL || getBaseUrl()
         )
       )
     }
@@ -58,7 +59,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(
         new URL(
           '/invite/invite-error?reason=expired',
-          env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+          env.NEXT_PUBLIC_APP_URL || getBaseUrl()
         )
       )
     }
@@ -68,7 +69,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(
         new URL(
           '/invite/invite-error?reason=already-processed',
-          env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+          env.NEXT_PUBLIC_APP_URL || getBaseUrl()
         )
       )
     }
@@ -78,7 +79,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(
         new URL(
           '/invite/invite-error?reason=email-mismatch',
-          env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+          env.NEXT_PUBLIC_APP_URL || getBaseUrl()
         )
       )
     }
@@ -99,7 +100,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(
         new URL(
           '/invite/invite-error?reason=already-member',
-          env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+          env.NEXT_PUBLIC_APP_URL || getBaseUrl()
         )
       )
     }
@@ -206,7 +207,7 @@ export async function GET(req: NextRequest) {
 
     // Redirect to success page or main app
     return NextResponse.redirect(
-      new URL('/workspaces?invite=accepted', env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai')
+      new URL('/workspaces?invite=accepted', env.NEXT_PUBLIC_APP_URL || getBaseUrl())
     )
   } catch (error) {
     logger.error('Failed to accept organization invitation', {
@@ -218,7 +219,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(
       new URL(
         '/invite/invite-error?reason=server-error',
-        env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
+        env.NEXT_PUBLIC_APP_URL || getBaseUrl()
       )
     )
   }

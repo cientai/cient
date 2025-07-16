@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { getSession } from '@/lib/auth'
 import { isDev } from '@/lib/environment'
 import { createLogger } from '@/lib/logs/console-logger'
-import { getBaseDomain } from '@/lib/urls/utils'
+import { getBaseDomain, getProtocol } from '@/lib/urls/utils'
 import { encryptSecret } from '@/lib/utils'
 import { createErrorResponse, createSuccessResponse } from '@/app/api/workflows/utils'
 import { db } from '@/db'
@@ -71,9 +71,7 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
     // Create a new result object without the password
     const { password, ...safeData } = chatInstance[0]
 
-    const chatUrl = isDev
-      ? `http://${chatInstance[0].subdomain}.${getBaseDomain()}`
-      : `https://${chatInstance[0].subdomain}.simstudio.ai`
+    const chatUrl = `${getProtocol()}${chatInstance[0].subdomain}.${getBaseDomain()}`
 
     const result = {
       ...safeData,
@@ -219,9 +217,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
       const updatedSubdomain = subdomain || existingChat[0].subdomain
 
-      const chatUrl = isDev
-        ? `http://${updatedSubdomain}.${getBaseDomain()}`
-        : `https://${updatedSubdomain}.simstudio.ai`
+      const chatUrl = `${getProtocol()}${updatedSubdomain}.${getBaseDomain()}`
 
       logger.info(`Chat "${chatId}" updated successfully`)
 

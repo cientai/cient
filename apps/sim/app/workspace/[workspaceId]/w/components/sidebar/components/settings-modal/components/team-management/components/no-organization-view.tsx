@@ -3,6 +3,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { OrganizationCreationDialog } from './organization-creation-dialog'
+import { getBaseDomain } from '@/lib/urls/utils'
 
 interface NoOrganizationViewProps {
   hasTeamPlan: boolean
@@ -64,7 +65,7 @@ export function NoOrganizationView({
                 </label>
                 <div className='flex items-center space-x-2'>
                   <div className='rounded-l-md bg-muted px-3 py-2 text-muted-foreground text-sm'>
-                    simstudio.ai/team/
+                    {getBaseDomain()}/team/
                   </div>
                   <Input
                     id='orgSlug'

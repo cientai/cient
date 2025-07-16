@@ -1,5 +1,5 @@
 import { Container, Img, Link, Section, Text } from '@react-email/components'
-import { env } from '@/lib/env'
+import { getBaseUrl } from '@/lib/urls/utils'
 
 interface UnsubscribeOptions {
   unsubscribeToken?: string
@@ -11,10 +11,7 @@ interface EmailFooterProps {
   unsubscribe?: UnsubscribeOptions
 }
 
-export const EmailFooter = ({
-  baseUrl = env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai',
-  unsubscribe,
-}: EmailFooterProps) => {
+export const EmailFooter = ({ baseUrl = getBaseUrl(), unsubscribe }: EmailFooterProps) => {
   return (
     <Container>
       <Section style={{ maxWidth: '580px', margin: '0 auto', padding: '20px 0' }}>

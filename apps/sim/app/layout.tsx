@@ -51,12 +51,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: {
     template: '',
-    default: 'Sim Studio',
+    default: 'CientAI',
   },
   description:
     'Build and deploy AI agents using our Figma-like canvas. Build, write evals, and deploy AI agent workflows that automate workflows and streamline your business processes.',
-  applicationName: 'Sim Studio',
-  authors: [{ name: 'Sim Studio' }],
+  applicationName: 'CientAI',
+  authors: [{ name: 'CientAI' }],
   generator: 'Next.js',
   keywords: [
     'AI agent',
@@ -75,9 +75,9 @@ export const metadata: Metadata = {
     'visual programming',
   ],
   referrer: 'origin-when-cross-origin',
-  creator: 'Sim Studio',
-  publisher: 'Sim Studio',
-  metadataBase: new URL('https://simstudio.ai'),
+  creator: 'CientAI',
+  publisher: 'CientAI',
+  metadataBase: new URL('https://cient.dev'),
   alternates: {
     canonical: '/',
     languages: {

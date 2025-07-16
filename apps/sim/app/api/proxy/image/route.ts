@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createLogger } from '@/lib/logs/console-logger'
+import { getBaseUrl } from '@/lib/urls/utils'
 
 const logger = createLogger('ImageProxyAPI')
 
@@ -28,9 +29,9 @@ export async function GET(request: NextRequest) {
         Accept: 'image/webp,image/avif,image/apng,image/svg+xml,image/*,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
         'Accept-Encoding': 'gzip, deflate, br',
-        Referer: 'https://simstudio.ai/',
+        Referer: getBaseUrl(),
         'Sec-Fetch-Dest': 'image',
-        'Sec-Fetch-Mode': 'no-cors',
+        'Sec-Fetch-Mode': 'no-cors',  
         'Sec-Fetch-Site': 'cross-site',
       },
     })

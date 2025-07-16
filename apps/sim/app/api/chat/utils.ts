@@ -14,6 +14,7 @@ import type { BlockLog } from '@/executor/types'
 import { Serializer } from '@/serializer'
 import { mergeSubblockState } from '@/stores/workflows/server-utils'
 import type { WorkflowState } from '@/stores/workflows/workflow/types'
+import { getBaseDomain } from '@/lib/urls/utils'
 
 declare global {
   var __chatStreamProcessingTasks: Promise<{ success: boolean; error?: any }>[] | undefined
@@ -65,8 +66,7 @@ export const setChatAuthCookie = (
     secure: !isDev,
     sameSite: 'lax',
     path: '/',
-    // Using subdomain for the domain in production
-    domain: isDev ? undefined : '.simstudio.ai',
+    domain: isDev ? undefined : `.${getBaseDomain()}`,
     maxAge: 60 * 60 * 24, // 24 hours
   })
 }

@@ -7,7 +7,7 @@ import { WorkspaceInvitationEmail } from '@/components/emails/workspace-invitati
 import { getSession } from '@/lib/auth'
 import { env } from '@/lib/env'
 import { createLogger } from '@/lib/logs/console-logger'
-import { getEmailDomain } from '@/lib/urls/utils'
+import { getBaseUrl, getEmailDomain } from '@/lib/urls/utils'
 import { db } from '@/db'
 import {
   type permissionTypeEnum,
@@ -222,9 +222,8 @@ async function sendInvitationEmail({
   token: string
 }) {
   try {
-    const baseUrl = env.NEXT_PUBLIC_APP_URL || 'https://simstudio.ai'
     // Always use the client-side invite route with token parameter
-    const invitationLink = `${baseUrl}/invite/${token}?token=${token}`
+    const invitationLink = `${getBaseUrl()}/invite/${token}?token=${token}`
 
     const emailHtml = await render(
       WorkspaceInvitationEmail({

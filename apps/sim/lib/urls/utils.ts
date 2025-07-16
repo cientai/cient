@@ -1,6 +1,10 @@
 import { env } from '@/lib/env'
 import { isProd } from '@/lib/environment'
 
+export const getProtocol = (): string => {
+  return isProd ? 'https://' : 'http://'
+}
+
 /**
  * Returns the base URL of the application, respecting environment variables for deployment environments
  * @returns The base URL string (e.g., 'http://localhost:3000' or 'https://example.com')
@@ -16,8 +20,7 @@ export function getBaseUrl(): string {
       return baseUrl
     }
 
-    const protocol = isProd ? 'https://' : 'http://'
-    return `${protocol}${baseUrl}`
+    return `${getProtocol()}${baseUrl}`
   }
 
   return 'http://localhost:3000'
@@ -25,7 +28,7 @@ export function getBaseUrl(): string {
 
 /**
  * Returns just the domain and port part of the application URL
- * @returns The domain with port if applicable (e.g., 'localhost:3000' or 'simstudio.ai')
+ * @returns The domain with port if applicable (e.g., 'localhost:3000' or 'cient.dev')
  */
 export function getBaseDomain(): string {
   try {
@@ -36,7 +39,7 @@ export function getBaseDomain(): string {
     try {
       return new URL(fallbackUrl).host
     } catch {
-      return isProd ? 'simstudio.ai' : 'localhost:3000'
+      return isProd ? 'cient.dev' : 'localhost:3000'
     }
   }
 }
