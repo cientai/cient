@@ -392,10 +392,10 @@ export const settings = pgTable('settings', {
 
   // General settings
   theme: text('theme').notNull().default('system'),
-  debugMode: boolean('debug_mode').notNull().default(false),
   autoConnect: boolean('auto_connect').notNull().default(true),
   autoFillEnvVars: boolean('auto_fill_env_vars').notNull().default(true),
   autoPan: boolean('auto_pan').notNull().default(true),
+  consoleExpandedByDefault: boolean('console_expanded_by_default').notNull().default(true),
 
   // Privacy settings
   telemetryEnabled: boolean('telemetry_enabled').notNull().default(true),
@@ -627,28 +627,6 @@ export const workspace = pgTable('workspace', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
-
-export const workspaceMember = pgTable(
-  'workspace_member',
-  {
-    id: text('id').primaryKey(),
-    workspaceId: text('workspace_id')
-      .notNull()
-      .references(() => workspace.id, { onDelete: 'cascade' }),
-    userId: text('user_id')
-      .notNull()
-      .references(() => user.id, { onDelete: 'cascade' }),
-    role: text('role').notNull().default('member'), // e.g., 'owner', 'admin', 'member'
-    joinedAt: timestamp('joined_at').notNull().defaultNow(),
-    updatedAt: timestamp('updated_at').notNull().defaultNow(),
-  },
-  (table) => {
-    return {
-      // Create index on userId for fast lookups of workspaces by user
-      userIdIdx: uniqueIndex('user_workspace_idx').on(table.userId, table.workspaceId),
-    }
-  }
-)
 
 // Define the permission enum
 export const permissionTypeEnum = pgEnum('permission_type', ['admin', 'write', 'read'])
